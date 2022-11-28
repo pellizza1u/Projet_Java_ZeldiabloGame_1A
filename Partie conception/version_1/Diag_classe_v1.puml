@@ -1,0 +1,63 @@
+@startuml
+
+class Perso{
+	x : int
+	y : int
+	+ Perso(dx : int, dy : int)
+	+ etrePresent(dx : int, dy : int) : boolean
+	+ getX() : int
+	+ getY() : int
+}
+
+
+class Labyrinthe{
+	+ static final MUR : char = 'X'
+	+ static final PJ : char = 'P'
+	+ static final VIDE : char = '.'
+
+	+ static final HAUT : String = "Haut"
+	+ static final BAS : String = "Bas"
+	+ static final GAUCHE : String = "Gauche"
+	+ static final DROITE : String = "Droite"
+
+	+ murs : boolean[][]
+
+	static getSuivant(x : int, y : int, action : String) : int[]
+	+ Labyrinthe(nom : String)
+	+ deplacerPerso(action : String)
+	+ etreFini() : boolean
+	+ getLengthY() : int
+	+ getLength() : int
+	+ getMur : boolean
+}
+
+Labyrinthe "*" -> "1" Perso : pj
+
+class LabyDessin {
+	+ LabyDessin()
+	+ dessinJeu(jeu : Jeu, canvas : Canvas) 
+}
+
+class DessinJeu{
+	+ dessinJeu(jeu : Jeu, canvas : Canvas)
+}
+
+LabyDessin ..|> DessinJeu
+
+class LabyJeu{
+	+ LabyJeu()
+	+ update(secondes : double, clavier Clavier)
+	+ init()
+	+ etreFini() : boolean
+	+ getLaby() : Labyrinthe		
+}
+
+class Jeu{
+	+ update(secondes : double, clavier Clavier)
+	+ init()
+	+ etreFini() : boolean
+}
+LabyJeu ..|> Jeu 
+LabyJeu "*" -> "1" Labyrinthe : labyrinthe
+
+@enduml

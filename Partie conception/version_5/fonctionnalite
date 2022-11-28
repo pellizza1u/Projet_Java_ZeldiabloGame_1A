@@ -1,0 +1,8 @@
+﻿Fonctionnalité : 
+- Passage de la classe Perso en classe abstraite afin de rajouter une méthode attaquer(Perso p) implémenter par 2 classes : Joueur et Monstre. 
+- Un personnage va pouvoir attaquer un monstre (attaque = 35pv) 
+- Un monstre va pouvoir attaquer un personnage (attaque =30pv). 
+Remarque : La classe Joueur possède un constructeur vide.
+- Fin de la partie lorsque les monstres sont tous morts.
+- Fin de la partie lorsque le joueur n'a plus de vie.
+- Possibilité d'avoir sur un même jeu plusieurs monstres et plusieurs caseEffets.

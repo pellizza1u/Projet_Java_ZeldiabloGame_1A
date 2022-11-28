@@ -1,0 +1,5 @@
+1 Le monstre et dépalcement
+- le monstre se déplace pour chaque update 
+- le monstre se déplace une fois par seconde.
+
+

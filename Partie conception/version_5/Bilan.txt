@@ -1,0 +1,4 @@
+Si il n'y a aucun monstre sur le fichier texte, le jeu est directement terminé et provoque un bug
+Aucune difficulté particulière excepté qu'on aurait pu passer par Le pattern Strategy piur attaquer.
+
+remarque : le tag v4 a était créé mais oubli de le push, on peut le retrouver dans le commit v4_src si jamais..

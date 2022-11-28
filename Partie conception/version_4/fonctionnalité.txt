@@ -1,0 +1,5 @@
+fonctionnalités : Création d'une classe abstraite CaseEffet qui herite de Perso et qui est parente de deux classes
+représentant les fonctionnalités : CasePiege et CaseHeal.
+CasePiege => le personnage ou le monstre perd 25pv lorsque celui-ci passe sur la case, la case devient orange lorsqu'on la déclenche
+CaseHeal=> le personnage ou le monstre gagne 50pv lorsque celui-ci passe sur la case, la case devient verte lorsqu'on la déclenche
+Remarque : Une fois déclenchées, ces cases n'auront plus d'effet mais elles resterons visibles et le personnage ou le monstre pourra passer dessus comme une case banale.

@@ -1,0 +1,2 @@
+On a eu des difficultés à la création des cases.
+Le diagramme de classe commence à devenir lour et nous avons eu des difficultés à le rendre lisible

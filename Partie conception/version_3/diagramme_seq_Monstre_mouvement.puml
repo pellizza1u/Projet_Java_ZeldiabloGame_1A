@@ -1,0 +1,27 @@
+@startuml
+hide footbox
+
+participant  "main : MainLaby" as main
+participant  "moteur : MoteurJeu" as m
+participant  "jeu : LabyJeu" as LJ
+participant  "laby : Labyrinthe" as laby
+
+main -> m : launch(jeu, dessin)
+activate m
+
+m -> LJ: update()
+activate LJ
+
+LJ -> laby: deplacerPerso("Haut", monstre)
+activate laby
+LJ <-- laby 
+deactivate laby
+m <--LJ
+deactivate LJ
+
+main <-- m
+deactivate m
+
+
+ 
+@enduml

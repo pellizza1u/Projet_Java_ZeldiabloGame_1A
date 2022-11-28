@@ -1,0 +1,6 @@
+Nous avons quelques problèmes lors da la réalisation du diagramme à cause d'une
+simple erreur de syntaxe. Le code de déplacement étant plutot nous n'avons eu 
+aucun probleme à le réaliser
+
+Dans l'etat actuel, le joueur peut se déplacer dans toutes les directions à l'aide du clavier,
+et à chaque seconde, le monstre effectue un déplacement.

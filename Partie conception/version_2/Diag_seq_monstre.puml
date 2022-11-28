@@ -1,0 +1,50 @@
+@startuml
+hide footbox
+
+participant "main:MainLaby" as main
+participant "moteur:MoteurJeu" as GameEngine
+participant "dessin:LabyDessin" as r 
+participant "jeu:LabyJeu" as game 
+participant "clavier:Clavier" as clavier
+participant "canvas:Canvas" as canvas
+participant "laby : Labyrinthe" as l
+participant "pj : Perso" as p
+participant "m : Monstre" as m
+
+
+create game
+main -> game : new
+create l
+game -> l : new
+create p
+l -> p
+create m
+l -> m
+create r
+main -> r : new
+
+main -> GameEngine : setTaille(width,height)
+activate GameEngine
+main <-- GameEngine
+deactivate GameEngine
+
+main-> GameEngine : setFps(fps)
+activate GameEngine
+main <-- GameEngine
+deactivate GameEngine
+
+main-> GameEngine : launch(jeu,dessin)
+
+activate GameEngine #0000FF
+
+create clavier
+GameEngine -> clavier : new
+
+create canvas
+GameEngine -> canvas : new
+
+
+
+main<-- GameEngine
+deactivate GameEngine
+@enduml

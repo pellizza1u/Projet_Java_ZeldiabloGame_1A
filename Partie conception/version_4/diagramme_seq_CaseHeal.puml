@@ -1,0 +1,39 @@
+@startuml
+hide footbox
+
+participant  "main : MainLaby" as main
+participant  "moteur : MoteurJeu" as m
+participant  "jeu : LabyJeu" as LJ
+participant  "laby : Labyrinthe" as laby
+participant "piege : CaseHeal" as ch
+
+main -> m : launch(jeu, dessin)
+activate m
+
+m -> LJ: update()
+activate LJ
+
+LJ -> laby: deplacerPerso("Haut", perso)
+activate laby
+laby -> ch : declencher(perso)
+activate ch
+ch -> ch : setActiver(true)
+ch -> perso : gagnerPv(50)
+activate perso
+ch <-- perso
+deactivate perso
+laby <-- ch
+deactivate ch
+ 
+
+LJ <-- laby 
+deactivate laby
+m <--LJ
+deactivate LJ
+
+main <-- m
+deactivate m
+
+
+ 
+@enduml

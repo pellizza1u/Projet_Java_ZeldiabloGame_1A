@@ -1,0 +1,146 @@
+@startuml
+
+
+
+class Monstre{
+	- degats : int
+	+ Monstre(dx : int, dy : int)
+	+ attaquer(perso : Perso)
+}
+
+Perso <|-- Monstre
+
+class Labyrinthe{
+	+ hauteur
+	+ largeur
+
+	+ static final MUR : char = 'X'
+	+ static final PJ : char = 'P'
+	+ static final VIDE : char = '.'
+	+ static final MONSTER : char = 'M'
+	+ static final PIEGE: char = 'T'
+	+ static final HEAL: char = 'H'
+
+	+ static final HAUT : String = "Haut"
+	+ static final BAS : String = "Bas"
+	+ static final GAUCHE : String = "Gauche"
+	+ static final DROITE : String = "Droite"
+
+	+ pj : Perso
+	+ monstre : liste<Monstre>
+	+caseEffets : liste<CaseEffet>
+	+ murs : boolean[][]
+
+	static getSuivant(x : int, y : int, action : String) : int[]
+	+ Labyrinthe(nom : String)
+	- gestionCasesEffet(perso : Perso, suivante : int[])
+	- monstreSurChemin(perso : Perso, suivante : int[]) : boolean
+	- joueurSurChemin(perso : Perso, suivante : int[]) : boolean
+	- deplacementPossible(perso :Perso, suivante : int[]) : boolean
+	+ deplacerPerso(action : String, perso : Perso)
+	- trouverMonstre( coordonnees : int[]) : Monstre
+	+ gestionAttPerso()
+	+ etreFini() : boolean
+	+ getLengthY() : int
+	+ getLength() : int
+	+ getMur : boolean
+}
+
+Labyrinthe "*" --> "1" Perso : pj
+Monstre "*" <- "*" Labyrinthe : monstre
+Labyrinthe "*" -> "*" CaseEffet: caseEffets
+
+class LabyDessin {
+	+ LabyDessin()
+	+ dessinJeu(jeu : Jeu, canvas : Canvas) 
+	- dessinerMonstres(gc : GraphicsContext, laby : Labyrinthe, height : int, width : int)
+	- dessinerCases(gc : GraphicsContext, laby : Labyrinthe, height : int, width : int)
+	- dessinerMur(gc : GraphicsContext, laby : Labyrinthe, height : int, width : int)
+
+
+}
+
+interface DessinJeu{
+	+ dessinJeu(jeu : Jeu, canvas : Canvas )
+}
+
+LabyDessin ..|> DessinJeu
+
+class LabyJeu{
+	- labyrinthe : Labyrinthe
+	- actionMonstre : Liste<String>
+	- rand : Random
+	- finiPerso : boolean
+	- finiMonstre : boolean
+	+ LabyJeu()
+	+ update(secondes : double, clavier Clavier)
+	- initActionMonstre()
+	+ init()
+	+ etreFini() : boolean
+	+ getLaby() : Labyrinthe		
+}
+
+interface Jeu{
+	+ update(secondes : double, clavier Clavier)
+	+ init()
+	+ etreFini() : boolean
+}
+LabyJeu ..|> Jeu 
+LabyJeu "*" -> "1" Labyrinthe : labyrinthe
+
+abstract class CaseEffet{
+	- activer : boolean
+	- x : int
+	- y : int
+	+ CaseEffet(dx : int, dy : int)
+	{abstract} + declencher(p : Perso)
+	+ setActiver(visible : boolean)
+	+ isActiver() : boolean
+	+ getX() : int
+	+ getY() : int
+}
+
+class CasePiege{
+	- degats : int
+	+ CasePiege(x : int, y : int)
+	+ declencher(p : Perso)
+}
+
+CaseEffet<|-- CasePiege
+
+class CaseHeal{
+	- heal : int
+	+ CaseHeal(x : int, y : int)
+	+ declencher(p : Perso)
+}
+
+CaseEffet<|-- CaseHeal
+
+abstract class Perso{
+	dernierMouvement : String
+	x : int
+	y : int
+	pv : int
+	degats : int	
+	+ Perso(dx : int, dy : int)
+	+ etrePresent(dx : int, dy : int) : boolean
+	+ getX() : int
+	+ getY() : int
+	+ perdePv(pvperdu : int)
+	+ gagnerPv(pvgagner : int)
+	{abstract} + attaquer(perso : Perso)
+	+ getAttaque() : int
+	+ getDernierMouvement() : String
+	+ setDernierMouvement(dernierMouvement : String)
+	
+	
+}
+
+class Joueur{
+	- degats : int
+	+ Joueur()
+	+ attaquer(perso : Perso)
+
+}
+Perso<|-- Joueur
+@enduml

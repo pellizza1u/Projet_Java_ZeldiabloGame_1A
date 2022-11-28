@@ -1,0 +1,75 @@
+@startuml
+hide footbox
+
+participant "moteur : MoteurJeu" as GameEngine
+participant "labyJeu : LabyJeu" as labyJeu
+participant "laby : Labyrinthe" as laby
+participant "pj : Perso" as perso
+
+GameEngine -> labyJeu : update(1, clavier)
+activate labyJeu
+
+labyJeu -> laby : deplacerPerso(haut)
+activate laby
+
+laby -> perso : getY()
+activate perso
+laby <-- perso : 5
+deactivate perso
+
+laby -> perso : getX()
+activate perso
+laby <-- perso : 2
+deactivate perso
+
+laby -> laby : getSuivant(2, 5, "HAUT")
+activate laby 
+deactivate laby
+
+laby -> perso : setY(6)
+activate perso
+laby <-- perso
+deactivate perso
+
+laby -> perso : setX(2)
+activate perso
+laby <-- perso
+deactivate perso
+
+labyJeu <-- laby
+deactivate laby
+
+labyJeu -> laby : deplacerPerso(droite)
+activate laby
+
+laby -> perso : getY()
+activate perso
+laby <-- perso : 6
+deactivate perso
+
+laby -> perso : getX()
+activate perso
+laby <-- perso : 2
+deactivate perso
+
+laby -> laby : getSuivant(2, 6, "DROITE")
+activate laby
+deactivate laby
+
+laby -> perso : setY(6)
+activate perso
+laby <-- perso
+deactivate perso
+
+laby -> perso : setX(3)
+activate perso
+laby <-- perso
+deactivate perso
+
+labyJeu <-- laby
+deactivate laby
+
+GameEngine <-- labyJeu
+deactivate labyJeu
+
+@enduml

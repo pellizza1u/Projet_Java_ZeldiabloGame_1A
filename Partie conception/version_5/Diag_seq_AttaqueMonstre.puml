@@ -1,0 +1,42 @@
+@startuml
+hide footbox
+
+participant  "main : MainLaby" as main
+participant  "moteur : MoteurJeu" as m
+participant  "jeu : LabyJeu" as LJ
+participant  "laby : Labyrinthe" as laby
+participant "monstre : Monstre" as monstre
+participant "perso : Joueur" as pj 
+main -> m : launch(jeu, dessin)
+activate m
+
+m -> LJ: update()
+activate LJ
+
+LJ -> laby: deplacerPerso("Haut", monstre)
+activate laby
+laby -> laby ++ : joueurSurChemin(perso, (2, 3))
+laby -> monstre : attaquer(perso)
+activate monstre
+monstre -> monstre ++: getAttaque()
+monstre --> monstre --: 30
+monstre -> pj : perdrePv(30)
+activate pj
+monstre <-- pj
+deactivate pj
+laby <-- monstre
+deactivate monstre
+laby --> laby --
+ 
+
+LJ <-- laby 
+deactivate laby
+m <--LJ
+deactivate LJ
+
+main <-- m
+deactivate m
+
+
+ 
+@enduml

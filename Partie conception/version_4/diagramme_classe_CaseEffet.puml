@@ -1,0 +1,108 @@
+@startuml
+
+
+
+class Monstre{
+	+ Monstre(dx : int, dy : int)
+}
+
+Perso <|-- Monstre
+
+class Labyrinthe{
+	+ static final MUR : char = 'X'
+	+ static final PJ : char = 'P'
+	+ static final VIDE : char = '.'
+	+ static final MONSTER : char = 'M'
+	+ static final PIEGE: char = 'T'
+	+ static final HEAL: char = 'H'
+
+	+ static final HAUT : String = "Haut"
+	+ static final BAS : String = "Bas"
+	+ static final GAUCHE : String = "Gauche"
+	+ static final DROITE : String = "Droite"
+
+	+ murs : boolean[][]
+
+	static getSuivant(x : int, y : int, action : String) : int[]
+	+ Labyrinthe(nom : String)
+	+ deplacerPerso(action : String, perso : Perso)
+	+ etreFini() : boolean
+	+ getLengthY() : int
+	+ getLength() : int
+	+ getMur : boolean
+}
+
+Labyrinthe "*" --> "1" Perso : pj
+Monstre "1" <- "*" Labyrinthe : monstre
+CaseEffet  "*" <-- "1" Labyrinthe: heal
+Labyrinthe "*" -> "1" CaseEffet: piege
+
+class LabyDessin {
+	+ LabyDessin()
+	+ dessinJeu(jeu : Jeu, canvas : Canvas) 
+}
+
+interface DessinJeu{
+	+ dessinJeu(jeu : Jeu, canvas : Canvas)
+}
+
+LabyDessin ..|> DessinJeu
+
+class LabyJeu{
+	- labyrinthe : Labyrinthe
+	- actionMonstre : Liste<String>
+	- rand : Random
+	+ LabyJeu()
+	+ update(secondes : double, clavier Clavier)
+	- initActionMonstre()
+	+ init()
+	+ etreFini() : boolean
+	+ getLaby() : Labyrinthe		
+}
+
+interface Jeu{
+	+ update(secondes : double, clavier Clavier)
+	+ init()
+	+ etreFini() : boolean
+}
+LabyJeu ..|> Jeu 
+LabyJeu "*" -> "1" Labyrinthe : labyrinthe
+
+abstract class CaseEffet{
+	- activer : boolean
+	- x : int
+	- y : int
+	+ CaseEffet(dx : int, dy : int)
+	{abstract} + declencher(p : Perso)
+	+ setActiver(visible : boolean)
+	+ isActiver() : boolean
+	+ getX() : int
+	+ getY() : int
+}
+
+class CasePiege{
+	- degats : int
+	+ CasePiege(x : int, y : int)
+	+ declencher(p : Perso)
+}
+
+CaseEffet<|-- CasePiege
+
+class CaseHeal{
+	- heal : int
+	+ CaseHeal(x : int, y : int)
+	+ declencher(p : Perso)
+}
+
+CaseEffet<|-- CaseHeal
+class Perso{
+	x : int
+	y : int
+	+ Perso(dx : int, dy : int)
+	+ etrePresent(dx : int, dy : int) : boolean
+	+ getX() : int
+	+ getY() : int
+	+ perdePv(pvperdu : int)
+	+ gagnerPv(pvgagner : int)
+}
+@enduml
